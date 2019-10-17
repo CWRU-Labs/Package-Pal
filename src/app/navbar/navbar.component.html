@@ -1,6 +1,8 @@
 <div class="toolbar">
     <mat-toolbar color="primary">
-        <span>Package Pal</span>
+        <a routerLink="/home">
+            <span>Package Pal</span>
+        </a>
         <span class="toolbar-options"></span>
         <mat-form-field class="search-field">
             <input #search matInput style="font-size: 12px;" type="search" placeholder="Search for a package" [(ngModel)]="value" (keyup.enter)="onEnter(search.value)">
