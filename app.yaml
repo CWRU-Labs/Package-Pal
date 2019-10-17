@@ -1,0 +1,10 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  static_files: dist/package-pal/index.html
+  upload: dist/package-pal/index.html
+- url: /
+  static_dir: dist/package-pal
