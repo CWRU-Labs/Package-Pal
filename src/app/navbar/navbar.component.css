@@ -1,0 +1,9 @@
+.toolbar-options {
+    flex: 1 1 auto;
+}
+
+.search-field {
+    width: 150px;
+    font-size: 10pt;
+    margin-bottom: -10px;
+}
