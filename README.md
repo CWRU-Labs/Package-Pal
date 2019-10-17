@@ -1,3 +1,7 @@
+Developed by Jason Richards and Jacob Engelbrecht
+
+Class Project for EECS 391 Software Engineering 
+
 # PackagePal
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
