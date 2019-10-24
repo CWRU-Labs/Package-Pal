@@ -12,7 +12,7 @@ CORS(app)
 api = Api(app)
 class Package(Resource):
     def get(self, id):
-        return jsonify(id="1", recipient="Jason", address="My Home", location="Wade", dateTimeIn="11", dateTimeOut="null", completeText="blah blah", imageLoc="string", description="Sample P$
+        return jsonify(id="1", recipient="Jason", address="My Home", location="Wade", dateTimeIn="11", dateTimeOut="null", completeText="blah blah", imageLoc="string", description="Sample Package")
 class Tracks(Resource):
     def get(self, a):
         return jsonify(username="Jacob", email="je1", id="je12")
