@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
     exports: [
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
         MatInputModule,
         MatCardModule,
         MatIconModule,
+        MatTableModule,
     ]
 })
 export class MaterialModule {}

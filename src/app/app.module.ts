@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { HttpClientModule } from '@angular/common/http';
 
 import { UploadComponent } from './upload/upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -12,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
 import { ImageDataService } from './image-data.service';
+import { PackageComponent } from './package/package.component';
+import { PackageDataService } from './package-data.service';
 
 @NgModule({
   declarations: [
@@ -20,15 +23,20 @@ import { ImageDataService } from './image-data.service';
     NavbarComponent,
     HomeComponent,
     SearchResultsComponent,
+    PackageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [ImageDataService],
+  providers: [
+    ImageDataService,
+    PackageDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

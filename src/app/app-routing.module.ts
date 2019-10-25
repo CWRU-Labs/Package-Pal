@@ -3,13 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { PackageComponent } from './package/package.component';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'search/:query', component: SearchResultsComponent }, 
-  //{ path: 'packages/:packageId', component: PackageComponent }
+  { path: 'package/:packageId', component: PackageComponent },
 ];
 
 @NgModule({

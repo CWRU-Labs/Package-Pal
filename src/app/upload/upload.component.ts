@@ -1,4 +1,6 @@
+import { Router } from '@angular/router';
 import { ImageDataService } from '../image-data.service';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -9,20 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  constructor(public imagePreview: ImageDataService) { }
+  constructor(public imageService: ImageDataService, private http: HttpClient, private router: Router) { }
 
   file;
   public message: string;
+  uploadedFilePath: string = null;
 
   get img() {
-    return this.imagePreview.image;
+    return this.imageService.image;
   }
 
   set img(value) {
-    this.imagePreview.image = value;
+    this.imageService.image = value;
   }
 
   onFileUpload(event) {
+    this.message = null;
+    
+    if (event.target.files[0] == undefined) {
+      this.message = "Please select an image.";
+      return;
+    }
 
     this.file = event.target.files[0];
 
@@ -36,6 +45,14 @@ export class UploadComponent implements OnInit {
       this.img = reader.result;
     };
     reader.readAsDataURL(this.file);
+  }
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('file', this.file);
+    //alert('local success');
+    //this.router.navigate([`/package/${1}`]);
+    this.imageService.addLabel(formData);
   }
 
   ngOnInit() {
