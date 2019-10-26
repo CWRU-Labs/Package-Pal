@@ -1,3 +1,10 @@
+/**
+ * Angular Material page for visual elements and components.
+ * All imports here are used in at least one component.
+ * Documentation on Angular Material Components can be
+ * referenced at https://material.angular.io/.
+ */
+
 import { NgModule } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';

@@ -1,9 +1,14 @@
+import { Package } from './../package';
 import { Router } from '@angular/router';
 import { ImageDataService } from '../image-data.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-
+/**
+ * UploadComponent handles the upload of a package label
+ * by a user, POST to the backend API, and navigation to 
+ * the package page by the package's ID once returned
+ * by the API.
+ */
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
@@ -11,35 +16,45 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  constructor(public imageService: ImageDataService, private http: HttpClient, private router: Router) { }
+  constructor(
+    public imageService: ImageDataService,
+    private router: Router,
+  ) { }
 
-  file;
+  file: any;
   public message: string;
   uploadedFilePath: string = null;
 
+  // Get the shared image from the image data service
   get img() {
     return this.imageService.image;
   }
 
+  // Set the shared image from the image data service
   set img(value) {
     this.imageService.image = value;
   }
 
+  // Stores and previews the user-uploaded image in the UI card
   onFileUpload(event) {
     this.message = null;
     
+    // Make sure an image was selected
     if (event.target.files[0] == undefined) {
       this.message = "Please select an image.";
       return;
     }
 
+    // Store the file
     this.file = event.target.files[0];
 
+    // Only accept image filetypes
     if (this.file.type.match(/image\/*/) == null) {
       this.message = "Only images are supported.";
       return;
     }
 
+    // Read the image for display on the UI card
     const reader = new FileReader();
     reader.onload = () => {
       this.img = reader.result;
@@ -47,12 +62,15 @@ export class UploadComponent implements OnInit {
     reader.readAsDataURL(this.file);
   }
 
+  // POST the image to the API, navigate to its respective package page on response
   onSubmit() {
     const formData = new FormData();
     formData.append('file', this.file);
-    //alert('local success');
-    //this.router.navigate([`/package/${1}`]);
-    this.imageService.addLabel(formData);
+    console.log(formData.get('file'));
+    this.imageService.addLabel(formData).subscribe((res: Package) => {
+      console.log(res);
+      this.router.navigate([`/package/${res.id}`]);
+    });
   }
 
   ngOnInit() {

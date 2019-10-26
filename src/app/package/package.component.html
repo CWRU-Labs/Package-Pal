@@ -1,5 +1,3 @@
-<!--<button mat-raised-button (click)="getPackage()">Get package</button>-->
-
 <table>
     <tr>
         <th>ID</th>
@@ -12,7 +10,7 @@
         <th>Image Location</th>
         <th>Description</th>
     </tr>
-    <tr>
+    <tr *ngIf="pkgInfo">
         <td>{{ pkgInfo.id }}</td>
         <td>{{ pkgInfo.recipient }}</td>
         <td>{{ pkgInfo.address }}</td>

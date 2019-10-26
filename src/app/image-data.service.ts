@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
+/**
+ * ImageDataService holds the POST method for submitting
+ * an image of a package label to the API. It holds the
+ * field for the image data for use by
+ * all components injecting the service.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -10,21 +16,12 @@ export class ImageDataService {
 
   image: string | ArrayBuffer;
 
-  apiURL: string = `https://backend-dot-package-pal.appspot.com`;
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'image/png'
-    })
-  };
+  private apiURL: string = `https://backend-dot-package-pal.appspot.com`;
 
+  // POST the form data to the API
   addLabel(formData: FormData) {
     // concatenate url for image upload
-    return this.http.post(this.apiURL, formData, this.httpOptions).subscribe(res => {
-      console.log(res);
-      alert('SUCCESS');
-    });
-  }
-    
-
-  
+    const url = `${this.apiURL}/uploader`;
+    return this.http.post(url, formData);
+  }  
 }
