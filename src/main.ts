@@ -9,5 +9,8 @@ if (environment.production) {
   enableProdMode();
 }
 
+/**
+ * Bootstrap and initiate the app.
+ */
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
