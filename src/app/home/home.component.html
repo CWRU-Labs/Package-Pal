@@ -1,17 +1,2 @@
-<mat-card class="upload-card">
-    <mat-card-header>
-        <mat-card-title>Check in a Package</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="{{ img }}" *ngIf="img; else elseBlock">
-    <ng-template #elseBlock>
-            <img mat-card-image src="http://silkbrassband.co.uk/images/no-image-selected.png" alt="No image selected.">
-    </ng-template>
-    <mat-card-content>
-        <p>
-            Upload an image of the package label containing the recipient's name and campus address.
-        </p>
-    </mat-card-content>
-    <mat-card-actions>
-        <app-upload></app-upload>
-    </mat-card-actions>
-</mat-card>
+<app-user-info></app-user-info>
+<app-upload></app-upload>

@@ -1,8 +1,29 @@
-<input hidden #file type="file" accept='image/*' (change)="onFileUpload($event)"/>
-<button mat-button (click)="file.click()">Browse</button>
-<button mat-button disabled *ngIf="!img; else elseBlock">Submit</button>
-<ng-template #elseBlock>
-    <button mat-button (click)="onSubmit()">Submit</button>
-</ng-template>
-
-<span style="color:red;" *ngIf="message">{{ message }}</span>
+<mat-card class="upload-card">
+    <mat-card-header>
+        <mat-card-title>Check in a Package</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="{{ img }}" *ngIf="img; else placeholder">
+    <ng-template #placeholder>
+        <img mat-card-image src="http://silkbrassband.co.uk/images/no-image-selected.png" alt="No image selected.">
+    </ng-template>
+    <mat-card-content>
+        <p>
+            Upload an image of the package label containing the recipient's name and campus address.
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <input hidden #file type="file" accept='image/*' (change)="onFileUpload($event)"/>
+        <button mat-button (click)="file.click()">Browse</button>
+        <button mat-button disabled *ngIf="!img; else allowSubmit">Submit</button>
+        <ng-template #allowSubmit>
+            <span>
+                <button mat-button (click)="onSubmit()">Submit</button>
+            </span>
+        </ng-template>
+            
+        <span style="color:red;" *ngIf="message">{{ message }}</span>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="isLoading">
+        <mat-progress-bar mode='indeterminate'></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>

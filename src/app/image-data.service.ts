@@ -20,7 +20,7 @@ export class ImageDataService {
 
   // POST the form data to the API
   addLabel(formData: FormData) {
-    // concatenate url for image upload
+    // concatenate api url for image upload
     const url = `${this.apiURL}/uploader`;
     return this.http.post(url, formData);
   }  

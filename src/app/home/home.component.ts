@@ -13,16 +13,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public imagePreview: ImageDataService) { }
+  constructor(public imageDataService: ImageDataService) { }
 
   // Get shared image data for display in the home HTML template
   get img() {
-    return this.imagePreview.image;
+    return this.imageDataService.image;
   }
 
   // Set shared image data
   set img(value) {
-    this.imagePreview.image = value;
+    this.imageDataService.image = value;
   }
 
   ngOnInit() {

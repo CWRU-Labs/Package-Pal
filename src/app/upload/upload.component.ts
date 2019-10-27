@@ -1,3 +1,4 @@
+import { AuthGuard } from './../auth.guard';
 import { Package } from './../package';
 import { Router } from '@angular/router';
 import { ImageDataService } from '../image-data.service';
@@ -17,22 +18,28 @@ import { Component, OnInit } from '@angular/core';
 export class UploadComponent implements OnInit {
 
   constructor(
-    public imageService: ImageDataService,
+    public imageDataService: ImageDataService,
     private router: Router,
+    private authGuard: AuthGuard,
   ) { }
 
   file: any;
   public message: string;
   uploadedFilePath: string = null;
+  isLoading: boolean = false;
+
+  get currentUser() {
+    return this.authGuard.user;
+  }
 
   // Get the shared image from the image data service
   get img() {
-    return this.imageService.image;
+    return this.imageDataService.image;
   }
 
   // Set the shared image from the image data service
   set img(value) {
-    this.imageService.image = value;
+    this.imageDataService.image = value;
   }
 
   // Stores and previews the user-uploaded image in the UI card
@@ -64,11 +71,13 @@ export class UploadComponent implements OnInit {
 
   // POST the image to the API, navigate to its respective package page on response
   onSubmit() {
+    this.isLoading = true;
     const formData = new FormData();
     formData.append('file', this.file);
-    console.log(formData.get('file'));
-    this.imageService.addLabel(formData).subscribe((res: Package) => {
-      console.log(res);
+    //console.log(formData.get('file'));
+    this.imageDataService.addLabel(formData).subscribe((res: Package) => {
+      //console.log(res);
+      this.img = null;
       this.router.navigate([`/package/${res.id}`]);
     });
   }

@@ -34,7 +34,7 @@ export class PackageComponent implements OnInit {
   // Submit the HTTP GET request to obtain package information based on the package ID
   getPackage() {
     this.packageDataService.getPackage(this.packageId).subscribe((res: Package) => {
-      console.log(res);
+      //console.log(res);
       this.pkgInfo = res;
     })
   }

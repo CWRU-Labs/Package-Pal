@@ -3,12 +3,18 @@
 }
 
 .search-field {
-    width: 150px;
+    width: 200px;
     font-size: 10pt;
     margin-bottom: -10px;
 }
 
 a {
     text-decoration: none;
-    color: white;
+}
+
+.toolbar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 1000;
 }

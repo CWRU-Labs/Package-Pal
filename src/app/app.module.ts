@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,10 +12,23 @@ import { UploadComponent } from './upload/upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { PackageComponent } from './package/package.component';
+import { LoginComponent } from './login/login.component';
 
 import { ImageDataService } from './image-data.service';
-import { PackageComponent } from './package/package.component';
 import { PackageDataService } from './package-data.service';
+
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { UserInfoComponent } from './user-info/user-info.component';
+
+const google_oauth_client_id: string = "316380460002-9g7vutkj2684i985joncr724arbtcga3.apps.googleusercontent.com";
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(google_oauth_client_id)
+  }
+])
+
 
 @NgModule({
   declarations: [
@@ -24,6 +38,8 @@ import { PackageDataService } from './package-data.service';
     HomeComponent,
     SearchResultsComponent,
     PackageComponent,
+    LoginComponent,
+    UserInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +49,12 @@ import { PackageDataService } from './package-data.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SocialLoginModule.initialize(config),
   ],
   providers: [
     ImageDataService,
-    PackageDataService
+    PackageDataService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,5 @@
+import { AuthGuard } from './auth.guard';
+import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -10,10 +12,11 @@ import { PackageComponent } from './package/package.component';
  * must be defined here for proper navigation.
  */
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'search/:query', component: SearchResultsComponent }, 
-  { path: 'package/:packageId', component: PackageComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, canActivate:[AuthGuard] },
+  { path: 'search/:query', component: SearchResultsComponent, canActivate:[AuthGuard] }, 
+  { path: 'package/:packageId', component: PackageComponent, canActivate:[AuthGuard] },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
