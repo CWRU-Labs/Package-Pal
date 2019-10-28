@@ -1,9 +1,3 @@
-.upload-card {
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 mat-card img {
     object-fit: scale-down;
     height: 275px;

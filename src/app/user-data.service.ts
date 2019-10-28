@@ -18,7 +18,7 @@ export class UserDataService {
       (response) => {
         console.log(platform + " logged in user data is= " , response);
         this.user = response;
-        this.router.navigate(['home']);
+        this.router.navigate(['/home']);
       }
     );
   }
@@ -27,6 +27,6 @@ export class UserDataService {
     this.authService.signOut();
     this.user = null;
     console.log('User signed out.');
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 }
