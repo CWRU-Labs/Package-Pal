@@ -12,7 +12,7 @@ import { PackageComponent } from './package/package.component';
  * must be defined here for proper navigation.
  */
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard] },
   { path: 'search/:query', component: SearchResultsComponent, canActivate:[AuthGuard] }, 
   { path: 'package/:packageId', component: PackageComponent, canActivate:[AuthGuard] },

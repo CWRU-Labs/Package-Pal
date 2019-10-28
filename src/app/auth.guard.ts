@@ -2,6 +2,7 @@ import { AuthService, SocialUser } from 'angularx-social-login';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { take, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,16 @@ export class AuthGuard implements CanActivate {
         this.user = user;
         this.loggedIn = (user != null);
       });
-    return this.loggedIn;
-  }
-  
+      return this.authService.authState.pipe(
+        take(1),
+        map(user => !!user),
+        tap(
+          loggedIn => {
+            if (!loggedIn) {
+              this.router.navigate(['/login']);
+            }
+          }
+        )
+      );
+    }
 }

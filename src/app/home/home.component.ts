@@ -1,10 +1,9 @@
-import { ImageDataService } from '../image-data.service';
 import { Component, OnInit } from '@angular/core';
 
 /**
  * HomeComponent represents the home page navigated to
  * upon employee authentication and login. It displays the
- * upload component, <ADD MORE COMPONENTS HERE ONCE FINISHED>. 
+ * upload component, user info component, <ADD OTHERS>. 
  */
 @Component({
   selector: 'app-home',
@@ -13,17 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public imageDataService: ImageDataService) { }
-
-  // Get shared image data for display in the home HTML template
-  get img() {
-    return this.imageDataService.image;
-  }
-
-  // Set shared image data
-  set img(value) {
-    this.imageDataService.image = value;
-  }
+  constructor() { }
 
   ngOnInit() {
   }

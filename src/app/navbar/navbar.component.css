@@ -18,3 +18,8 @@ a {
     top: 0;
     z-index: 1000;
 }
+
+.icon {
+    width: 30px;
+    padding-right: 5px;
+}
