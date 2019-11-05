@@ -1,4 +1,3 @@
-import { AuthGuard } from './auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -15,22 +14,20 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { PackageComponent } from './package/package.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
+import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
 
 import { ImageDataService } from './image-data.service';
 import { PackageDataService } from './package-data.service';
+import { UserDataService } from './user-data.service';
 
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
-import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
+import { AuthGuard } from './auth.guard';
 
-// Congif for Google client authentication
-const google_oauth_client_id: string = "316380460002-9g7vutkj2684i985joncr724arbtcga3.apps.googleusercontent.com";
-let config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider(google_oauth_client_id)
-  }
-])
+import { SocialLoginModule } from 'angularx-social-login';
 
+import { Config } from '../assets/auth-config';
+
+// Google OAuth client ID configuration instance
+let config = new Config();
 
 @NgModule({
   declarations: [
@@ -52,11 +49,12 @@ let config = new AuthServiceConfig([
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialLoginModule.initialize(config),
+    SocialLoginModule.initialize(config.getConfig()),
   ],
   providers: [
     ImageDataService,
     PackageDataService,
+    UserDataService,
     AuthGuard
   ],
   bootstrap: [AppComponent]

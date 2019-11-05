@@ -1,5 +1,6 @@
 import { PackageDataService } from './../package-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recent-packages',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecentPackagesComponent implements OnInit {
 
-  constructor(private packageDataService: PackageDataService) { }
+  constructor(private packageDataService: PackageDataService, private router: Router) { }
 
   // Get the recent packages list
   get recentPackages() {
@@ -20,16 +21,16 @@ export class RecentPackagesComponent implements OnInit {
     this.packageDataService.recents = value;
   }
 
-  // Subscribe (fire) an HTTP get request for the 5 most recent packages and store it in the data field for template display
+  // Subscribe (fire) an HTTP get request for the 5 most recent packages and store it in the recent packages field for template display
   getRecentPackages(count: number) {
     this.packageDataService.getRecent(5).subscribe(result => {
       let resultValues = Object.values(result);
-      let formattedResponse = [];
-      for (let value in resultValues) {
-        formattedResponse.push(resultValues[value])
-      }
-      this.recentPackages = formattedResponse;
+      this.recentPackages = resultValues;
     })
+  }
+
+  redirectToPackage(id: number) {
+    this.router.navigate([`/package/${id}`]);
   }
 
   ngOnInit() {

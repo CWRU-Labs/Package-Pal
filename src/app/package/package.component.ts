@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PackageDataService } from './../package-data.service';
 import { Package } from '../package';
 
@@ -27,7 +27,10 @@ export class PackageComponent implements OnInit {
     this.packageDataService.pkg = value;
   }
 
-  constructor(private route: ActivatedRoute, private packageDataService: PackageDataService) { }
+  constructor(private route: ActivatedRoute, private packageDataService: PackageDataService, private router: Router) {
+    // On URL parameter change, refresh data
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   // Submit the HTTP GET request to obtain package information based on the package ID
   getPackage() {

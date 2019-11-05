@@ -3,14 +3,14 @@
         <mat-card-title>Recent Packages</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <table class="mat-elevation-z2">
+        <table class="mat-elevation-z2 recents">
             <tr>
                 <th>Recipient</th>
                 <th>Date/Time In</th>
                 <th>Address</th>
                 <th>Location</th>
             </tr>
-            <tr *ngFor="let package of recentPackages">
+            <tr *ngFor="let package of recentPackages" (click)="redirectToPackage(package.id)">
                 <td>{{ package.recipient }}</td>
                 <td>{{ package.dateTimeIn }}</td>
                 <td>{{ package.address }}</td>

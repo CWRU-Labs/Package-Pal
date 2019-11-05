@@ -1,0 +1,9 @@
+.recents tr:hover {
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+.recents th {
+    cursor: default;
+    background-color: white;
+}

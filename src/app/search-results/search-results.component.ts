@@ -35,12 +35,13 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // Subscribe to (fire) the HTTP GET request for the search query for a package and store its response for HTML template display
   search() {
     this.packageDataService.getSearchResults(this.query).subscribe(result => {
-      let resultValues = Object.values(result);
-      let formattedResponse = [];
-      for (let value in resultValues) {
-        formattedResponse.push(resultValues[value])
+      let resultValues: any = Object.values(result);
+      console.log(resultValues);
+      if (resultValues[5] == -1) {
+        this.searchResults = null;
+      } else {
+        this.searchResults = resultValues;
       }
-      this.searchResults = formattedResponse;
     })
   }
 

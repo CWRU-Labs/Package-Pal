@@ -1,3 +1,9 @@
-.results tr {
+.results tr:hover {
     cursor: pointer;
+    background-color: #ddd;
+}
+
+.results th {
+    cursor: default;
+    background-color: white;
 }

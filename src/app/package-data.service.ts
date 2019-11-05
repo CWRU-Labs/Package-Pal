@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Package } from './package';
+import { Observable } from 'rxjs';
 
 /**
  * PackageDataService holds the methods for handling API calls
@@ -34,20 +35,20 @@ export class PackageDataService {
   };
 
   // HTTP GET request usuing the API URL and HTTP options for retrieving package information based on package ID
-  getPackage(id: string) {
+  getPackage(id: string): Observable<Package> {
     const url = `${this.apiURL}/package/${id}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get<Package>(url, this.httpOptions);
   }
 
   // HTTP GET request using the API URL and HTTP options for retrieving the last "count" number of packages inputted in the database
-  getRecent(count: number) {
+  getRecent(count: number): Observable<Package[]> {
     const url = `${this.apiURL}/recents/${count}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get<Package[]>(url, this.httpOptions);
   }
 
   // HTTP GET request for returning search results based on inputted query
-  getSearchResults(query: string) {
+  getSearchResults(query: string): Observable<Package[]> {
     const url = `${this.apiURL}/search/${query}`;
-    return this.http.get(url, this.httpOptions);
+    return this.http.get<Package[]>(url, this.httpOptions);
   }
 }
