@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Package } from '../package';
-
 import { PackageDataService } from './../package-data.service';
+import { Package } from '../package';
 
 /**
  * PackageComponent represents the package page
@@ -34,16 +32,18 @@ export class PackageComponent implements OnInit {
   // Submit the HTTP GET request to obtain package information based on the package ID
   getPackage() {
     this.packageDataService.getPackage(this.packageId).subscribe((res: Package) => {
-      //console.log(res);
       this.pkgInfo = res;
-    })
+    },
+    error => {
+      console.log('There was an error white retrieving package information' + error);
+    });
   }
 
   // On initialization, show package data and monitor URL parameter changes to accurately display information
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.packageId = params.get('packageId');
-    })
+    });
     this.getPackage();
   }
 

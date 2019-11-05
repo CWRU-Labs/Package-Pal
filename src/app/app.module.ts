@@ -14,13 +14,15 @@ import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { PackageComponent } from './package/package.component';
 import { LoginComponent } from './login/login.component';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 import { ImageDataService } from './image-data.service';
 import { PackageDataService } from './package-data.service';
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
-import { UserInfoComponent } from './user-info/user-info.component';
+import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
 
+// Congif for Google client authentication
 const google_oauth_client_id: string = "316380460002-9g7vutkj2684i985joncr724arbtcga3.apps.googleusercontent.com";
 let config = new AuthServiceConfig([
   {
@@ -40,6 +42,7 @@ let config = new AuthServiceConfig([
     PackageComponent,
     LoginComponent,
     UserInfoComponent,
+    RecentPackagesComponent,
   ],
   imports: [
     BrowserModule,
