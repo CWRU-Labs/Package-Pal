@@ -1,5 +1,5 @@
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './../material-module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
@@ -15,16 +15,16 @@ describe('UploadComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule,
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule
       ],
       declarations: [
         UploadComponent
       ],
       providers: [
-        HttpClient,
-        HttpHandler,
-        AuthService,
-        AuthServiceConfig
+        {
+          provide: AuthService
+        }
       ]
     })
     .compileComponents();

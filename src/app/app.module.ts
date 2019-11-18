@@ -22,12 +22,14 @@ import { UserDataService } from './user-data.service';
 
 import { AuthGuard } from './auth.guard';
 
-import { SocialLoginModule } from 'angularx-social-login';
+import { SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 
 import { Config } from '../assets/auth-config';
 
 // Google OAuth client ID configuration instance
-let config = new Config();
+export function provideConfig() {
+  return new Config().getConfig();
+}
 
 @NgModule({
   declarations: [
@@ -49,13 +51,17 @@ let config = new Config();
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialLoginModule.initialize(config.getConfig()),
+    SocialLoginModule
   ],
   providers: [
     ImageDataService,
     PackageDataService,
     UserDataService,
-    AuthGuard
+    AuthGuard,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

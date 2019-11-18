@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   constructor(private router: Router) { }
+  
+  value: string
 
   // Navigate to the search results page with the query entered by the user
   onEnter(value: string) {

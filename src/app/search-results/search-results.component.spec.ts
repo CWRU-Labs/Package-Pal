@@ -21,8 +21,9 @@ describe('SearchResultsComponent', () => {
         SearchResultsComponent
       ],
       providers: [
-        AuthServiceConfig,
-        AuthService
+        {
+          provide: AuthService
+        }
       ]
     })
     .compileComponents();

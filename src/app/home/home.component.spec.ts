@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { RecentPackagesComponent } from './../recent-packages/recent-packages.component';
 import { UploadComponent } from './../upload/upload.component';
 import { UserInfoComponent } from './../user-info/user-info.component';
@@ -6,6 +7,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { AuthService, AuthServiceConfig } from 'angularx-social-login';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,7 +16,9 @@ describe('HomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule
+        MaterialModule,
+        RouterTestingModule,
+        HttpClientModule
       ],
       declarations: [
         HomeComponent,
@@ -23,8 +27,9 @@ describe('HomeComponent', () => {
         RecentPackagesComponent
       ],
       providers: [
-        AuthService,
-        AuthServiceConfig
+        {
+          provide: AuthService
+        }
       ]
     })
     .compileComponents();
