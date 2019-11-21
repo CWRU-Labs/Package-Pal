@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'search/:query', component: SearchResultsComponent, canActivate:[AuthGuard] }, 
   { path: 'package/:packageId', component: PackageComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

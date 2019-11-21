@@ -1,6 +1,11 @@
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClient, HttpHandler, HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './../material-module';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadComponent } from './upload.component';
+import { Router } from '@angular/router';
+import { AuthService, AuthServiceConfig } from 'angularx-social-login';
 
 describe('UploadComponent', () => {
   let component: UploadComponent;
@@ -8,7 +13,19 @@ describe('UploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UploadComponent ]
+      imports: [
+        MaterialModule,
+        RouterTestingModule,
+        HttpClientModule
+      ],
+      declarations: [
+        UploadComponent
+      ],
+      providers: [
+        {
+          provide: AuthService
+        }
+      ]
     })
     .compileComponents();
   }));

@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 
+  signIn() {
+    this.userDataService.signIn('Google');
+  }
+
   ngOnInit() {
   }
 

@@ -1,1 +1,22 @@
 <p *ngIf="query">Search query: {{ query }}</p>
+
+<table *ngIf="searchResults; else noResults" class="mat-elevation-z2 results">
+    <tr>
+        <th>ID</th>
+        <th>Recipient</th>
+        <th>Date/Time In</th>
+        <th>Address</th>
+        <th>Location</th>
+    </tr>
+    <tr *ngFor="let result of searchResults" (click)="redirectToPackage(result.id)">
+        <td>{{ result.id }}</td>
+        <td>{{ result.recipient }}</td>
+        <td>{{ result.dateTimeIn }}</td>
+        <td>{{ result.address }}</td>
+        <td>{{ result.location }}</td>
+    </tr>
+</table>
+
+<ng-template #noResults>
+    <p color="warn">No search results for "{{ query }}"</p>
+</ng-template>
