@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Package } from './package';
+import { Observable } from 'rxjs';
 
 /**
  * PackageDataService holds the methods for handling API calls
@@ -17,7 +18,14 @@ export class PackageDataService {
 
   private apiURL: string = 'https://backend-dot-package-pal.appspot.com';
 
+  // Current package for package page
   pkg: Package;
+
+  // List of recent specified number of packages listed in the database
+  recents: Package[];
+
+  // List of packages returned from search query
+  results: Package[];
 
   // Set HTTP headers for API handling
   httpOptions = {
@@ -27,8 +35,20 @@ export class PackageDataService {
   };
 
   // HTTP GET request usuing the API URL and HTTP options for retrieving package information based on package ID
-  getPackage(id: string) {
+  getPackage(id: string): Observable<Package> {
     const url = `${this.apiURL}/package/${id}`;
-    return this.http.get(url, this.httpOptions);
-  }  
+    return this.http.get<Package>(url, this.httpOptions);
+  }
+
+  // HTTP GET request using the API URL and HTTP options for retrieving the last "count" number of packages inputted in the database
+  getRecent(count: number): Observable<Package[]> {
+    const url = `${this.apiURL}/recents/${count}`;
+    return this.http.get<Package[]>(url, this.httpOptions);
+  }
+
+  // HTTP GET request for returning search results based on inputted query
+  getSearchResults(query: string): Observable<Package[]> {
+    const url = `${this.apiURL}/search/${query}`;
+    return this.http.get<Package[]>(url, this.httpOptions);
+  }
 }

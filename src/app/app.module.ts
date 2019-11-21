@@ -11,10 +11,25 @@ import { UploadComponent } from './upload/upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { PackageComponent } from './package/package.component';
+import { LoginComponent } from './login/login.component';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
 
 import { ImageDataService } from './image-data.service';
-import { PackageComponent } from './package/package.component';
 import { PackageDataService } from './package-data.service';
+import { UserDataService } from './user-data.service';
+
+import { AuthGuard } from './auth.guard';
+
+import { SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
+
+import { Config } from '../assets/auth-config';
+
+// Google OAuth client ID configuration instance
+export function provideConfig() {
+  return new Config().getConfig();
+}
 
 @NgModule({
   declarations: [
@@ -24,6 +39,9 @@ import { PackageDataService } from './package-data.service';
     HomeComponent,
     SearchResultsComponent,
     PackageComponent,
+    LoginComponent,
+    UserInfoComponent,
+    RecentPackagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,10 +51,17 @@ import { PackageDataService } from './package-data.service';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    SocialLoginModule
   ],
   providers: [
     ImageDataService,
-    PackageDataService
+    PackageDataService,
+    UserDataService,
+    AuthGuard,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# config
+auth-config.ts
+
 # compiled output
 /dist
 /tmp
@@ -14,6 +17,7 @@
 chrome-profiler-events*.json
 speed-measure-plugin*.json
 *.json
+
 # IDEs and editors
 /.idea
 .project

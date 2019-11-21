@@ -1,0 +1,4 @@
+mat-card img {
+    object-fit: scale-down;
+    height: 275px;
+}
