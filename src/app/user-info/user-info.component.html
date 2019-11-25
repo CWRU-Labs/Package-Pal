@@ -1,5 +1,5 @@
 
-<mat-card class="user-card">
+<mat-card *ngIf="this.curretUser == null" class="user-card">
     <mat-card-header>
         <div mat-card-avatar [ngStyle]="applyStyles()"></div>
         <mat-card-title>{{ currentUser.name }}</mat-card-title>

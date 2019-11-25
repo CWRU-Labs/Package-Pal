@@ -1,22 +1,45 @@
-<p *ngIf="query">Search query: {{ query }}</p>
+<div class="heading">
+    <h2 *ngIf="query">Results for "{{ query }}"</h2>
+    <mat-slide-toggle color="primary" [(ngModel)]="checked">Hide checked-out packages</mat-slide-toggle>
+</div>
 
-<table *ngIf="searchResults; else noResults" class="mat-elevation-z2 results">
+<table *ngIf="isResultsFound && searchResults; else noResults" class="mat-elevation-z2 results">
     <tr>
         <th>ID</th>
         <th>Recipient</th>
         <th>Date/Time In</th>
+        <th>Date/Time Out</th>
         <th>Address</th>
         <th>Location</th>
     </tr>
-    <tr *ngFor="let result of searchResults" (click)="redirectToPackage(result.id)">
-        <td>{{ result.id }}</td>
-        <td>{{ result.recipient }}</td>
-        <td>{{ result.dateTimeIn }}</td>
-        <td>{{ result.address }}</td>
-        <td>{{ result.location }}</td>
-    </tr>
+    <ng-container *ngIf="checked; else notchecked">
+        <tr *ngFor="let result of checkedInResults" (click)="redirectToPackage(result.id)">
+            <td>{{ result.id }}</td>
+            <td>{{ result.recipient }}</td>
+            <td>{{ result.dateTimeIn }}</td>
+            <td *ngIf="result.dateTimeOut; else notCheckedOut" >{{ result.dateTimeOut }}</td>
+            <ng-template #notCheckedOut>
+                <td><strong>N/A</strong></td>
+            </ng-template>
+            <td>{{ result.address }}</td>
+            <td>{{ result.location }}</td>
+        </tr>
+    </ng-container>
+    <ng-template #notchecked>
+        <tr *ngFor="let result of searchResults" (click)="redirectToPackage(result.id)">
+            <td>{{ result.id }}</td>
+            <td>{{ result.recipient }}</td>
+            <td>{{ result.dateTimeIn }}</td>
+            <td *ngIf="result.dateTimeOut; else notCheckedOut" >{{ result.dateTimeOut }}</td>
+            <ng-template #notCheckedOut>
+                <td><strong>N/A</strong></td>
+            </ng-template>
+            <td>{{ result.address }}</td>
+            <td>{{ result.location }}</td>
+        </tr>
+    </ng-template>
 </table>
 
 <ng-template #noResults>
-    <p color="warn">No search results for "{{ query }}"</p>
+    <p *ngIf="isResultsFound && !searchResults" color="warn">No search results for "{{ query }}."</p>
 </ng-template>

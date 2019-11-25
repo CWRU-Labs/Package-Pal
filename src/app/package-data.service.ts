@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Package } from './package';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 /**
  * PackageDataService holds the methods for handling API calls
@@ -37,18 +38,48 @@ export class PackageDataService {
   // HTTP GET request usuing the API URL and HTTP options for retrieving package information based on package ID
   getPackage(id: string): Observable<Package> {
     const url = `${this.apiURL}/package/${id}`;
-    return this.http.get<Package>(url, this.httpOptions);
+    return this.http.get<Package>(url, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // HTTP GET request using the API URL and HTTP options for retrieving the last "count" number of packages inputted in the database
   getRecent(count: number): Observable<Package[]> {
     const url = `${this.apiURL}/recents/${count}`;
-    return this.http.get<Package[]>(url, this.httpOptions);
+    return this.http.get<Package[]>(url, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
 
   // HTTP GET request for returning search results based on inputted query
   getSearchResults(query: string): Observable<Package[]> {
     const url = `${this.apiURL}/search/${query}`;
-    return this.http.get<Package[]>(url, this.httpOptions);
+    return this.http.get<Package[]>(url, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  // HTTP PUT request for updating a package after user edit on the package page
+  updatePackage(updatedPackage: Package): Observable<Package> {
+    const url = `${this.apiURL}/update/${updatedPackage.id}`;
+    return this.http.put<Package>(url, updatedPackage).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Handle any error thrown by above HTTP requests
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // a client-side or network error occurred
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // the backend returned an unsuccessful response code - the response body may contain clues as to what went wrong
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  };
 }

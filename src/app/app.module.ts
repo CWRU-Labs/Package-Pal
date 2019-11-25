@@ -26,6 +26,8 @@ import { SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 
 import { Config } from '../assets/auth-config';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 // Google OAuth client ID configuration instance
 export function provideConfig() {
   return new Config().getConfig();
@@ -51,7 +53,8 @@ export function provideConfig() {
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatSnackBarModule
   ],
   providers: [
     ImageDataService,

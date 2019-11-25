@@ -1,3 +1,12 @@
+.results {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+}
+
 .results tr:hover {
     cursor: pointer;
     background-color: #ddd;
@@ -6,4 +15,10 @@
 .results th {
     cursor: default;
     background-color: white;
+}
+
+.heading {
+    text-align: center;
+    margin: auto;
+    padding-bottom: 20px;
 }
