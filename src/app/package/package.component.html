@@ -1,5 +1,5 @@
-<form (ngSubmit)="onSubmit()" #pkgForm="ngForm">
-    <mat-accordion *ngIf="pkgInfo" class="example-headers-align">
+<form *ngIf="pkgInfo" (ngSubmit)="onSubmit()" #pkgForm="ngForm">
+    <mat-accordion class="example-headers-align">
         <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -139,6 +139,9 @@
         </mat-expansion-panel>
     </mat-accordion>
     
-    <button type="submit" mat-raised-button>Update</button>
-    <button type="button" mat-raised-button (click)="onCheckOut()">Check out</button>
+    <div class="footer">
+        <button type="submit" mat-raised-button>Update</button>
+        <span style="padding: 10px"></span>
+        <button type="button" mat-raised-button (click)="onCheckOut()">Check out</button>
+    </div>
 </form>

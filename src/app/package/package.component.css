@@ -17,3 +17,9 @@ mat-form-field {
     margin-right: 12px;
     width: 100%;
 }
+
+.footer {
+    text-align: center;
+    margin: auto;
+    padding: 20px;
+}

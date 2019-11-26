@@ -15,6 +15,7 @@ import { PackageComponent } from './package/package.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { ImageDataService } from './image-data.service';
 import { PackageDataService } from './package-data.service';
@@ -44,6 +45,7 @@ export function provideConfig() {
     LoginComponent,
     UserInfoComponent,
     RecentPackagesComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
