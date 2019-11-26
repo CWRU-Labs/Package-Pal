@@ -13,5 +13,5 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'package-pal';
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 }
