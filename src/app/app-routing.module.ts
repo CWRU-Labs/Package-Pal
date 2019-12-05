@@ -1,11 +1,12 @@
 import { AuthGuard } from './auth.guard';
-import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { PackageComponent } from './package/package.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 /**
  * Define the routing used by the application. Each page
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'search/:query', component: SearchResultsComponent, canActivate:[AuthGuard] }, 
   { path: 'package/:packageId', component: PackageComponent, canActivate:[AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '**', redirectTo: '/' },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404', pathMatch: 'full' },
 ];
 
 @NgModule({

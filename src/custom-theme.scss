@@ -233,3 +233,9 @@ $altTheme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
   padding: .5em .85em;
   min-height: 2.5em;
 }
+
+.snackbar-style {
+  .mat-simple-snackbar-action {
+    color: var(--primary-color);
+  }
+}

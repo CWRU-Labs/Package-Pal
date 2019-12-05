@@ -17,11 +17,13 @@ export class UserInfoComponent implements OnInit {
 
   applyStyles() {
     let styles
-    if (this.currentUser.photoUrl != undefined) {
-      styles = {'background-image' : `url(${this.currentUser.photoUrl})`};
-    }
-    else {
-      styles = {'display' : 'none'};
+    if (this.currentUser != null) {
+      if (this.currentUser.photoUrl != undefined) {
+        styles = {'background-image' : `url(${this.currentUser.photoUrl})`};
+      }
+      else {
+        styles = {'display' : 'none'};
+      }
     }
     return styles;
   }
