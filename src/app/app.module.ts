@@ -15,6 +15,7 @@ import { PackageComponent } from './package/package.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { ImageDataService } from './image-data.service';
 import { PackageDataService } from './package-data.service';
@@ -25,6 +26,8 @@ import { AuthGuard } from './auth.guard';
 import { SocialLoginModule, AuthServiceConfig} from 'angularx-social-login';
 
 import { Config } from '../assets/auth-config';
+
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // Google OAuth client ID configuration instance
 export function provideConfig() {
@@ -42,6 +45,7 @@ export function provideConfig() {
     LoginComponent,
     UserInfoComponent,
     RecentPackagesComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +55,8 @@ export function provideConfig() {
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    MatSnackBarModule
   ],
   providers: [
     ImageDataService,

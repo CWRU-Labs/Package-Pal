@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * Base component of the program. Initializes the program
@@ -12,4 +13,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'package-pal';
+  constructor(public router: Router) { }
 }

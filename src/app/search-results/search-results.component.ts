@@ -1,6 +1,7 @@
 import { PackageDataService } from './../package-data.service';
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Package } from '../package';
 
 /**
  * SearchResultsComponent is navigated to once a user
@@ -15,14 +16,25 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./search-results.component.css']
 })
 export class SearchResultsComponent implements OnInit, OnDestroy {
-  query: string;
 
   constructor(private route: ActivatedRoute, private packageDataService: PackageDataService, private router: Router) {
     // On URL parameter change (or new search from search bar), refresh data table
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
+  checked = true;
+
+  // Audio component :)
   audio = new Audio();
+
+  // Search query string
+  query: string;
+
+  // Boolean noting whether the HTTP search query has returned yet
+  isResultsFound = false;
+
+  // Array storing only packages that are checked in (not checked out yet)
+  checkedInResults: Array<Package> = [];
 
   get searchResults() {
     return this.packageDataService.results;
@@ -35,16 +47,23 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // Subscribe to (fire) the HTTP GET request for the search query for a package and store its response for HTML template display
   search() {
     this.packageDataService.getSearchResults(this.query).subscribe(result => {
-      let resultValues: any = Object.values(result);
-      console.log(resultValues);
-      if (resultValues[5] == -1) {
+      let resultValues: Package[] = Object.values(result);
+      if (resultValues[0].id == "-1") {
         this.searchResults = null;
       } else {
         this.searchResults = resultValues;
+        // Separate packages that are checked out for optional display
+        for (let index = 0; index < resultValues.length; index++) {
+          if (resultValues[index].dateTimeOut == null) {
+            this.checkedInResults.push(resultValues[index])
+          }
+        }
       }
+      this.isResultsFound = true;
     })
   }
 
+  // When a search result is clicked on, redirect to that package's package page
   redirectToPackage(id: number) {
     this.router.navigate([`/package/${id}`]);
   }
