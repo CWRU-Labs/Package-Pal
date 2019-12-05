@@ -1,3 +1,7 @@
 .container {
     margin: 35px;
 }
+
+body {
+    background-color: lightblue;
+}

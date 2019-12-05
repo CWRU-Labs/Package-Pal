@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PackageDataService } from './../package-data.service';
 import { Package } from '../package';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /**
  * PackageComponent represents the package page
@@ -25,7 +26,19 @@ export class PackageComponent implements OnInit {
   addressDisabled: boolean;
   storageLocationDisabled: boolean;
   descriptionDisabled: boolean;
-  
+  checkOutDisabled: boolean = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private packageDataService: PackageDataService,
+    private router: Router, 
+    private _snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {
+    // On URL parameter change, refresh data
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+
   // Get the shared package info
   get pkgInfo() {
     return this.packageDataService.pkg;
@@ -36,16 +49,24 @@ export class PackageComponent implements OnInit {
     this.packageDataService.pkg = value;
   }
 
-  constructor(private route: ActivatedRoute, private packageDataService: PackageDataService, private router: Router, private _snackBar: MatSnackBar) {
-    // On URL parameter change, refresh data
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  }
-
   // Submit the HTTP GET request to obtain package information based on the package ID
   getPackage() {
     this.packageDataService.getPackage(this.packageId).subscribe((res: Package) => {
-      //console.log(res);
+      console.log(res);
       this.pkgInfo = res;
+      // Disable all fields if the package is already checked out
+      if (this.pkgInfo.dateTimeOut != null) {
+        this.checkOutDisabled = true;
+        this.recipientDisabled = true;
+        this.addressDisabled = true;
+        this.storageLocationDisabled = true;
+        this.descriptionDisabled = true;
+      }
+      // Disable specific fields if package has been checked in and confirmed
+      if (this.pkgInfo.description != "") {
+        this.recipientDisabled = true;
+        this.addressDisabled = true;
+      }
     },
     error => {
       console.log('There was an error retrieving package information: ' + error);
@@ -69,11 +90,9 @@ export class PackageComponent implements OnInit {
 
   // Submit the changes to the data to to the API to update DB fields
   onSubmit() {
-    // Might need to send an actual package object and NOT formdata of individual fields. Research.
-    console.log(this.pkgInfo)
-
     this.packageDataService.updatePackage(this.pkgInfo).subscribe(res => {
       console.log(res);
+      this.getPackage();
       this._snackBar.open('Updated successfully.', 'OK', {
         duration: 2000,
         panelClass: ['snackbar-style'],
@@ -87,9 +106,18 @@ export class PackageComponent implements OnInit {
     });
   }
 
-  // Fire the HTTP request to delete the package from the database
-  onCheckOut() {
-    console.log('implement package delete');
+  openDialog() {
+    const dialogRef = this.dialog.open(PackageDialogComponent, {
+      data: {
+        pkg: this.pkgInfo,
+        pkgService: this.packageDataService,
+        router: this.router
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      console.log('Dialog closed')
+    })
   }
 
   // On initialization, show package data and monitor URL parameter changes to accurately display information
@@ -100,4 +128,31 @@ export class PackageComponent implements OnInit {
     this.getPackage();
   }
 
+}
+
+// Dialog box for confirming package checkout
+@Component({
+  selector: 'app-package-dialog',
+  templateUrl: './package-dialog.component.html',
+})
+export class PackageDialogComponent {
+
+  constructor(
+    public dialogRef: MatDialogRef<PackageDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
+
+  // If user selects 'no'
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
+  // Fire the HTTP request to delete the package from the database if user selects 'yes' and navigate home
+  onYesClick() {
+    this.data.pkgService.checkOutPackage(this.data.pkg.id).subscribe(res => {
+      console.log(res)
+      this.data.router.navigate([`/home`]);
+      this.dialogRef.close();
+    })
+  }
 }

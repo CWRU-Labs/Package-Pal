@@ -19,6 +19,8 @@ export class UserDataService {
         console.log(platform + " logged in user data is= " , response);
         this.user = response;
         this.router.navigate(['/home']);
+      }, error => {
+        console.log(error);
       }
     );
   }

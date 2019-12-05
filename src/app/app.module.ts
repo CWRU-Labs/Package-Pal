@@ -11,7 +11,7 @@ import { UploadComponent } from './upload/upload.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { PackageComponent } from './package/package.component';
+import { PackageComponent, PackageDialogComponent } from './package/package.component';
 import { LoginComponent } from './login/login.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { RecentPackagesComponent } from './recent-packages/recent-packages.component';
@@ -42,6 +42,7 @@ export function provideConfig() {
     HomeComponent,
     SearchResultsComponent,
     PackageComponent,
+    PackageDialogComponent,
     LoginComponent,
     UserInfoComponent,
     RecentPackagesComponent,
@@ -67,6 +68,10 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     }
+  ],
+  entryComponents: [
+    PackageComponent,
+    PackageDialogComponent
   ],
   bootstrap: [AppComponent]
 })

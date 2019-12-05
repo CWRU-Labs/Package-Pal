@@ -140,8 +140,9 @@
     </mat-accordion>
     
     <div class="footer">
-        <button type="submit" mat-raised-button>Update</button>
+        <button *ngIf='recipientDisabled && !descriptionDisabled' type="submit" mat-raised-button>Update</button>
+        <button *ngIf='!recipientDisabled' type="submit" mat-raised-button>Submit</button>    
         <span style="padding: 10px"></span>
-        <button type="button" mat-raised-button (click)="onCheckOut()">Check out</button>
+        <button *ngIf="!checkOutDisabled" type="button" mat-raised-button (click)="openDialog()">Check out</button>
     </div>
 </form>

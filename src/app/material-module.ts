@@ -17,6 +17,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     exports: [
@@ -31,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         MatGridListModule,
         MatExpansionModule,
         MatSlideToggleModule,
+        MatDialogModule
     ]
 })
 export class MaterialModule {}

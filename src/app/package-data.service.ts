@@ -67,6 +67,14 @@ export class PackageDataService {
     );
   }
 
+  // HTTP GET request for checking out a package after a user selects check out on the package page
+  checkOutPackage(id: string): Observable<Package> {
+    const url = `${this.apiURL}/delete/${id}`;
+    return this.http.get<Package>(url, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // Handle any error thrown by above HTTP requests
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
