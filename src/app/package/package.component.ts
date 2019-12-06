@@ -27,6 +27,7 @@ export class PackageComponent implements OnInit {
   storageLocationDisabled: boolean;
   descriptionDisabled: boolean;
   checkOutDisabled: boolean = false;
+  finished: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -52,7 +53,6 @@ export class PackageComponent implements OnInit {
   // Submit the HTTP GET request to obtain package information based on the package ID
   getPackage() {
     this.packageDataService.getPackage(this.packageId).subscribe((res: Package) => {
-      console.log(res);
       this.pkgInfo = res;
       // Disable all fields if the package is already checked out
       if (this.pkgInfo.dateTimeOut != null) {
@@ -67,6 +67,7 @@ export class PackageComponent implements OnInit {
         this.recipientDisabled = true;
         this.addressDisabled = true;
       }
+      this.finished = true;
     },
     error => {
       console.log('There was an error retrieving package information: ' + error);
@@ -91,7 +92,6 @@ export class PackageComponent implements OnInit {
   // Submit the changes to the data to to the API to update DB fields
   onSubmit() {
     this.packageDataService.updatePackage(this.pkgInfo).subscribe(res => {
-      console.log(res);
       this.getPackage();
       this._snackBar.open('Updated successfully.', 'OK', {
         duration: 2000,
@@ -106,6 +106,7 @@ export class PackageComponent implements OnInit {
     });
   }
 
+  // Open the dialog for confirming package checkout
   openDialog() {
     const dialogRef = this.dialog.open(PackageDialogComponent, {
       data: {
@@ -114,10 +115,6 @@ export class PackageComponent implements OnInit {
         router: this.router
       }
     });
-
-    dialogRef.afterClosed().subscribe(res => {
-      console.log('Dialog closed')
-    })
   }
 
   // On initialization, show package data and monitor URL parameter changes to accurately display information
@@ -150,9 +147,8 @@ export class PackageDialogComponent {
   // Fire the HTTP request to delete the package from the database if user selects 'yes' and navigate home
   onYesClick() {
     this.data.pkgService.checkOutPackage(this.data.pkg.id).subscribe(res => {
-      console.log(res)
-      this.data.router.navigate([`/home`]);
       this.dialogRef.close();
+      this.data.router.navigate([`/home`]);
     })
   }
 }

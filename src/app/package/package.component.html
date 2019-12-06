@@ -139,7 +139,7 @@
         </mat-expansion-panel>
     </mat-accordion>
     
-    <div class="footer">
+    <div class="footer" *ngIf='finished'>
         <button *ngIf='recipientDisabled && !descriptionDisabled' type="submit" mat-raised-button>Update</button>
         <button *ngIf='!recipientDisabled' type="submit" mat-raised-button>Submit</button>    
         <span style="padding: 10px"></span>

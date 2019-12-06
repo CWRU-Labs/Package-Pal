@@ -74,9 +74,7 @@ export class UploadComponent implements OnInit {
     this.isLoading = true;
     const formData = new FormData();
     formData.append('file', this.file);
-    //console.log(formData.get('file'));
     this.imageDataService.addLabel(formData).subscribe((res: Package) => {
-      //console.log(res);
       this.img = null;
       this.router.navigate([`/package/${res.id}`]);
     });
