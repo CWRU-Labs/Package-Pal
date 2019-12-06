@@ -1,6 +1,6 @@
 <div class="heading">
     <h2 *ngIf="query">Results for "{{ query }}"</h2>
-    <mat-slide-toggle color="primary" [(ngModel)]="checked">Hide checked-out packages</mat-slide-toggle>
+    <mat-slide-toggle *ngIf="isResultsFound && searchResults" color="primary" [(ngModel)]="checked">Hide checked-out packages</mat-slide-toggle>
 </div>
 
 <table *ngIf="isResultsFound && searchResults; else noResults" class="mat-elevation-z2 results">

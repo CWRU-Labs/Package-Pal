@@ -47,8 +47,8 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   // Subscribe to (fire) the HTTP GET request for the search query for a package and store its response for HTML template display
   search() {
     this.packageDataService.getSearchResults(this.query).subscribe(result => {
-      let resultValues: Package[] = Object.values(result);
-      if (resultValues[0].id == "-1") {
+      let resultValues = Object.values(result);
+      if (resultValues[5] as unknown == -1) {
         this.searchResults = null;
       } else {
         this.searchResults = resultValues;
@@ -72,7 +72,6 @@ export class SearchResultsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.query = params.get('query');
-      
     })
     if (this.query == "Play Lament") {
       this.audio.src = "./../../assets/Lament_Golden_Light.mp3";
